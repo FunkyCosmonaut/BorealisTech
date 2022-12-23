@@ -38,6 +38,13 @@ int windowCreate(){
 		cout << stderr << "Failed to initialize GLEW\n";
 		return -1;
 	}
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	do{
+		glClear(GL_COLOR_BUFFER_BIT);
+		glfwSwapBuffers(window);
+		glfwPollEvents();
+	}
+	while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 	return 0;
 }
 
