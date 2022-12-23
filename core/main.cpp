@@ -8,8 +8,8 @@
 
 int main(){
 
-	init();
-	windowCreate();
+	init_glfw();
+	init_window();
 
 
 

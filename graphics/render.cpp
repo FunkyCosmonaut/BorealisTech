@@ -1,25 +1,20 @@
-#include <iostream>
-
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
 #include "render.hpp"
 
-//using namespace glm;
+using namespace glm;
 using std::cout;
 using std::cin;
 
 
-int init(){
+int init_glfw(){
 	glewExperimental = true;
 	if(!glfwInit()){
-		cout << stderr << "Failed\n";
+		cout << stderr << "GLFW init Failed\n";
 		return -1;
 	}
 	else
 		return 0;
 }
-int windowCreate(){
+int init_window(){
 	
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
@@ -87,17 +82,3 @@ void render(GLuint vbuffer){
 	glDisableVertexAttribArray(0);
 
 }
-
-
-/*int main(){
-
-	init();
-	windowCreate();
-
-
-
-	return 0;
-
-
-}
-*/
