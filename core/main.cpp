@@ -8,7 +8,7 @@
 
 int main(){
 
-	init_glfw();
+//	init_glfw();
 	init_window();
 
 

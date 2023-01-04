@@ -4,7 +4,7 @@ using namespace glm;
 using std::cout;
 using std::cin;
 
-
+/*
 int init_glfw(){
 	glewExperimental = true;
 	if(!glfwInit()){
@@ -14,6 +14,7 @@ int init_glfw(){
 	else
 		return 0;
 }
+*/
 int init_window(){
 	
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -27,26 +28,49 @@ int init_window(){
 		cout << stderr << "Failed to open GLFW window\n";
 		glfwTerminate();
 		return -1;
-	}
+    }
+
 	glfwMakeContextCurrent(window);
-	glewExperimental=true;
+/*	glewExperimental=true;
 	if(glewInit() != GLEW_OK){
 		cout << stderr << "Failed to initialize GLEW\n";
 		return -1;
-	}
-	GLuint buffer = genbuffer();
+	}*/
+
+    glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+   // GLuint buffer = genbuffer();
+   // GLuint varray = genarray();
+
+
+	static const GLfloat g_vertex_buffer_data[] = {
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f, 1.0f, 0.0f,
+	};
+
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+    GLuint programID = LoadShaders("/graphics/vector.shader", "/graphics/fragment.shader");
 	do{
-		glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+     //   glUseProgram(programID);
+    //   glClear(GL_COLOR_BUFFER_BIT);
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		render(buffer);
+		render(vertexbuffer);
 	}
 	while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 	return 0;
 }
 
-GLuint genbuffer(){
+/*GLuint genbuffer(){
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
@@ -65,6 +89,14 @@ GLuint genbuffer(){
 	
 	return vertexbuffer;
 }
+
+GLuint genarray(){
+
+
+
+    return VertexArrayID;
+
+}*/
 
 void render(GLuint vbuffer){
 
