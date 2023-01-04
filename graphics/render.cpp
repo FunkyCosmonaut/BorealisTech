@@ -4,26 +4,31 @@ using namespace glm;
 using std::cout;
 using std::cin;
 
-/*
-int init_glfw(){
-	glewExperimental = true;
-	if(!glfwInit()){
-		cout << stderr << "GLFW init Failed\n";
-		return -1;
-	}
-	else
-		return 0;
+
+int init_glad(){
+
+    if (!gladLoadGLES2Loader((GLADloadproc)glfwGetProcAddress)){
+        std::cout << "Failed to initialize GLAD" << std::endl;
+        return -1;
+    }
+    return 0;
 }
-*/
+
 int init_window(){
+
+    if( !glfwInit() ){
+        fprintf( stderr, "Failed to initialize GLFW\n" );
+        return -1;
+    }
 	
 	glfwWindowHint(GLFW_SAMPLES, 4);
 
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,3.0);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,0);
-	GLFWwindow* window;
-	window = glfwCreateWindow(1024, 768, "test", NULL, NULL);
+	
+    GLFWwindow* window;
+	window = glfwCreateWindow(1024, 768, "testies", NULL, NULL);
 	if(window == NULL){
 		cout << stderr << "Failed to open GLFW window\n";
 		glfwTerminate();
@@ -31,18 +36,12 @@ int init_window(){
     }
 
 	glfwMakeContextCurrent(window);
-/*	glewExperimental=true;
-	if(glewInit() != GLEW_OK){
-		cout << stderr << "Failed to initialize GLEW\n";
-		return -1;
-	}*/
+   //maybe move this later
+    init_glad();
 
-    glClearColor(0.0f, 0.0f, 1.0f, 0.0f);
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
-	glBindVertexArray(VertexArrayID);
-   // GLuint buffer = genbuffer();
-   // GLuint varray = genarray();
+	glBindVertexArray(VertexArrayID); 
 
 
 	static const GLfloat g_vertex_buffer_data[] = {
@@ -57,20 +56,35 @@ int init_window(){
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
-    GLuint programID = LoadShaders("/graphics/vector.shader", "/graphics/fragment.shader");
-	do{
+    GLuint programID = LoadShaders("graphics/vertex.shader", "graphics/fragment.shader");
+//    glViewport(0, 0, 800, 600);
+    do{
+
+
+
+        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-     //   glUseProgram(programID);
+        glUseProgram(programID);
     //   glClear(GL_COLOR_BUFFER_BIT);
+		render(vertexbuffer);
+//
+
+/*	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0,(void*)0);
+	glDrawArrays(GL_TRIANGLES, 0, 3);
+	glDisableVertexAttribArray(0);
+*/
 		glfwSwapBuffers(window);
 		glfwPollEvents();
-		render(vertexbuffer);
+
+
 	}
 	while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 	return 0;
 }
 
-/*GLuint genbuffer(){
+GLuint genbuffer(){
 
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
@@ -93,23 +107,18 @@ int init_window(){
 GLuint genarray(){
 
 
-
+    GLuint VertexArrayID;
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
     return VertexArrayID;
 
-}*/
+}
 
 void render(GLuint vbuffer){
 
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbuffer);
-	glVertexAttribPointer(
-	0,
-	3,
-	GL_FLOAT,
-	GL_FALSE,
-	0,
-	(void*)0
-	);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0,(void*)0);
 	glDrawArrays(GL_TRIANGLES, 0, 3);
 	glDisableVertexAttribArray(0);
 
