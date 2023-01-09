@@ -61,7 +61,9 @@ GLFWwindow* init_statemachine(){
 int init_window(){
 
     GLFWwindow* window = init_statemachine();
-	GLuint VertexArrayID;
+	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+	
+    GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID); 
 
@@ -80,7 +82,7 @@ int init_window(){
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 
-	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
+
     GLuint programID = LoadShaders("graphics/vertex.shader", "graphics/fragment.shader");
     glViewport(0, 0, 800, 600);
 //view stuff
@@ -102,7 +104,7 @@ int init_window(){
 	while(glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS && glfwWindowShouldClose(window) == 0);
 	return 0;
 }
-
+//Need to incorporate the bottom 2 functions into init_window to shrink it
 GLuint genbuffer(){
 
 	GLuint VertexArrayID;

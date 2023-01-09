@@ -1,11 +1,7 @@
-//#define GLFW_INCLUDE_NONE
 #pragma once
 #include <iostream>
-
 #include "../include/glad/glad.h"
 #include <GLFW/glfw3.h>
-
-//#include <GL/glew.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
