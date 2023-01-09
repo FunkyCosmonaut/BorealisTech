@@ -8,8 +8,11 @@
 int main(){
 
 //	init_glad();
+
+
 	init_window();
 
+    //init_statemachine();
 
 
 	return 0;

@@ -31,11 +31,11 @@ int init_glad(){
     return 0;
 }
 
-int init_window(){
+GLFWwindow* init_statemachine(){
+
 
     if( !glfwInit() ){
         fprintf( stderr, "Failed to initialize GLFW\n" );
-        return -1;
     }
 	
 	glfwWindowHint(GLFW_SAMPLES, 4);
@@ -49,13 +49,18 @@ int init_window(){
 	if(window == NULL){
 		cout << stderr << "Failed to open GLFW window\n";
 		glfwTerminate();
-		return -1;
     }
 
 	glfwMakeContextCurrent(window);
    //maybe move this later
     init_glad();
+    return window;
+}
 
+
+int init_window(){
+
+    GLFWwindow* window = init_statemachine();
 	GLuint VertexArrayID;
 	glGenVertexArrays(1, &VertexArrayID);
 	glBindVertexArray(VertexArrayID); 
@@ -69,7 +74,7 @@ int init_window(){
 
 //ViewMatrix stuff
     glm::mat4 mvp = genMVPmatrix(WIDTH, HEIGHT);
-
+//
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -89,14 +94,6 @@ int init_window(){
         glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         glUseProgram(programID);
 		render(vertexbuffer);
-//
-
-/*	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0,(void*)0);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	glDisableVertexAttribArray(0);
-*/
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 
