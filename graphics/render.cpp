@@ -4,6 +4,13 @@ using namespace glm;
 using std::cout;
 using std::cin;
 
+#define WIDTH 1024
+#define HEIGHT 768
+
+glm::mat4 genMVPmatrix(float width, float height){
+// glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+
+}
 
 int init_glad(){
 
@@ -28,7 +35,7 @@ int init_window(){
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,0);
 	
     GLFWwindow* window;
-	window = glfwCreateWindow(1024, 768, "testies", NULL, NULL);
+	window = glfwCreateWindow(WIDTH, HEIGHT, "testies", NULL, NULL);
 	if(window == NULL){
 		cout << stderr << "Failed to open GLFW window\n";
 		glfwTerminate();
@@ -57,7 +64,7 @@ int init_window(){
 
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     GLuint programID = LoadShaders("graphics/vertex.shader", "graphics/fragment.shader");
-//    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, 800, 600);
     do{
 
 
@@ -65,7 +72,6 @@ int init_window(){
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(programID);
-    //   glClear(GL_COLOR_BUFFER_BIT);
 		render(vertexbuffer);
 //
 
@@ -113,7 +119,7 @@ GLuint genarray(){
     return VertexArrayID;
 
 }
-
+//We might move this to an object
 void render(GLuint vbuffer){
 
 	glEnableVertexAttribArray(0);
