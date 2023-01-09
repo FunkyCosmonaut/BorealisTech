@@ -1,5 +1,4 @@
 #include "render.hpp"
-
 using namespace glm;
 using std::cout;
 using std::cin;
@@ -8,7 +7,18 @@ using std::cin;
 #define HEIGHT 768
 
 glm::mat4 genMVPmatrix(float width, float height){
-// glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+    //Projection Matrix
+    glm::mat4 Projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+    
+    glm::mat4 View = glm::lookAt(
+            glm::vec3(4,3,3),
+            glm::vec3(0,0,0),
+            glm::vec3(0,1,0)
+            );
+
+    glm::mat4 Model = glm::mat4(1.0f);
+
+    return Projection * View * Model;
 
 }
 
@@ -57,6 +67,9 @@ int init_window(){
 		0.0f, 1.0f, 0.0f,
 	};
 
+//ViewMatrix stuff
+    glm::mat4 mvp = genMVPmatrix(WIDTH, HEIGHT);
+
 	GLuint vertexbuffer;
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -65,12 +78,15 @@ int init_window(){
 	glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
     GLuint programID = LoadShaders("graphics/vertex.shader", "graphics/fragment.shader");
     glViewport(0, 0, 800, 600);
+//view stuff
+    GLuint MatrixID = glGetUniformLocation(programID,"MVP");
     do{
 
 
 
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &mvp[0][0]);
         glUseProgram(programID);
 		render(vertexbuffer);
 //

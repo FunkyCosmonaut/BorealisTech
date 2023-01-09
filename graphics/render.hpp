@@ -1,4 +1,5 @@
 //#define GLFW_INCLUDE_NONE
+#pragma once
 #include <iostream>
 
 #include "../include/glad/glad.h"
@@ -6,6 +7,7 @@
 
 //#include <GL/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 
 int init_glad();
