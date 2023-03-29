@@ -1,0 +1,2 @@
+/usr/bin/ar qc libImpetus.a CMakeFiles/Impetus.dir/src/core/Application.cpp.o
+/usr/bin/ranlib libImpetus.a
