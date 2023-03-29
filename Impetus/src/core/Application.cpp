@@ -23,7 +23,7 @@ void Application::InitWindow() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 
-    GLFWwindow* window = glfwCreateWindow(width, height, windowTitle.c_str(), nullptr, nullptr);
+    window = glfwCreateWindow(width, height, windowTitle.c_str(), nullptr, nullptr);
     if (!window) {
         std::cerr << "Failed to create GLFW window" << std::endl;
         glfwTerminate();

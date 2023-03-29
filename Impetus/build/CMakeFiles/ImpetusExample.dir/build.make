@@ -96,7 +96,7 @@ ImpetusExample: libImpetus.a
 ImpetusExample: /usr/local/lib64/libglfw3.a
 ImpetusExample: /usr/lib64/librt.a
 ImpetusExample: /usr/lib64/libm.so
-ImpetusExample: ext/glad/libglad.a
+ImpetusExample: ext/glad/libglad.so
 ImpetusExample: CMakeFiles/ImpetusExample.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/cmunoz9/Documents/Impetus/Impetus/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ImpetusExample"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ImpetusExample.dir/link.txt --verbose=$(VERBOSE)
