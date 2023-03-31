@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
   "CMakeFiles/Impetus.dir/src/core/Application.cpp.o"
   "CMakeFiles/Impetus.dir/src/core/Application.cpp.o.d"
+  "CMakeFiles/Impetus.dir/src/core/GameObject.cpp.o"
+  "CMakeFiles/Impetus.dir/src/core/GameObject.cpp.o.d"
   "libImpetus.a"
   "libImpetus.pdb"
 )

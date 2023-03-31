@@ -1,4 +1,4 @@
-# Install script for directory: /home/cmunoz9/Documents/Impetus/Impetus/ext/glad
+# Install script for directory: /home/funkycosmonaut/Impetus/Impetus/ext/glad
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

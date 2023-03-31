@@ -1,4 +1,4 @@
-# Install script for directory: /home/cmunoz9/Documents/Impetus/Impetus
+# Install script for directory: /home/funkycosmonaut/Impetus/Impetus
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/cmunoz9/Documents/Impetus/Impetus/build/ext/glad/cmake_install.cmake")
+  include("/home/funkycosmonaut/Impetus/Impetus/build/ext/glad/cmake_install.cmake")
 
 endif()
 
@@ -56,5 +56,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/cmunoz9/Documents/Impetus/Impetus/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/funkycosmonaut/Impetus/Impetus/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

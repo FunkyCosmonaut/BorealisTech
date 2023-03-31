@@ -8,7 +8,10 @@ public:
     Application(const std::string& windowTitle, int width, int height);
     ~Application();
 
+    void Init();
     void Run();
+    //void Update(float deltaTime);
+    //void Render();
 
 private:
     void InitWindow();
