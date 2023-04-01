@@ -5,33 +5,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "impetus/utils/shaderloader.h"
+#include "impetus/core/camera.h"
 
-
-
-const char* vertexShaderSource = R"(
-#version 300 es
-layout (location = 0) in vec3 aPos;
-
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-
-void main()
-{
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
-}
-)";
-
-const char* fragmentShaderSource = R"(
-#version 300 es
-precision mediump float;
-out vec4 FragColor;
-
-void main()
-{
-    FragColor = vec4(1.0, 0.5, 0.2, 1.0);
-}
-)";
+#define IMAGE_HEIGHT 600
+#define IMAGE_WIDTH 800
 
 int main()
 {
@@ -46,7 +23,7 @@ int main()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 
-    GLFWwindow* window = glfwCreateWindow(800, 600, "Triangle", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(IMAGE_WIDTH, IMAGE_HEIGHT, "Impetus", nullptr, nullptr);
     if (!window)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;
@@ -60,6 +37,12 @@ int main()
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    //Escape callback, closes the program
+    glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+});
+
 
     std::string vertexShaderSource = LoadShaderSource("assets/triangle/triangle.vert");
     std::string fragmentShaderSource = LoadShaderSource("assets/triangle/triangle.frag");
@@ -72,17 +55,19 @@ int main()
     }
 
     glLinkProgram(shaderProgram);
+    Camera camera(0.0f, 0.0f, 3.0f, 0.0f, 1.0f, 0.0f, -90.0f, 0.0f);
+    
 
        // Create the model, view, and projection matrices
     glm::mat4 model = glm::mat4(1.0f);
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0.0f, 0.0f, 3.0f), // Camera position
+    /*glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 5.0f), // Camera position
         glm::vec3(0.0f, 0.0f, 0.0f), // Target position
         glm::vec3(0.0f, 1.0f, 0.0f)  // Up vector
-    );
+    );*/
     glm::mat4 projection = glm::perspective(
-        glm::radians(45.0f), // Field of view
-        800.0f / 600.0f,      // Aspect ratio
+        glm::radians(70.0f), // Field of view
+        (float)IMAGE_WIDTH / (float)IMAGE_HEIGHT,      // Aspect ratio
         0.1f,                 // Near clipping plane
         100.0f                // Far clipping plane
     );
@@ -110,8 +95,21 @@ int main()
     glEnableVertexAttribArray(0);
 
     // Render loop
+    float lastFrame = 0.0f;
     while (!glfwWindowShouldClose(window))
     {
+
+//===================================================================
+        float currentFrame = glfwGetTime();
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
+    for (int key : {GLFW_KEY_W, GLFW_KEY_A, GLFW_KEY_S, GLFW_KEY_D}) {
+        if (glfwGetKey(window, key) == GLFW_PRESS)
+            camera.ProcessKeyboard(key, deltaTime);
+    }
+//===================================================================
+
         // Clear the screen
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
@@ -119,12 +117,15 @@ int main()
         // Draw the triangle
         glUseProgram(shaderProgram);
         //projstuff
-        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+        glm::mat4 view = camera.GetViewMatrix();
         GLint viewLoc = glGetUniformLocation(shaderProgram, "view");
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+        //GLint viewLoc = glGetUniformLocation(shaderProgram, "view");
         GLint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
 
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
-        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        //glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
         //projstuff
         

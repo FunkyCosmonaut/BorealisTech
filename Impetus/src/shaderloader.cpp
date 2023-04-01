@@ -3,6 +3,8 @@
 #include <sstream>
 #include <iostream>
 
+
+
 GLuint LoadShader(GLenum shaderType, const std::string& shaderSource) {
     GLuint shader = glCreateShader(shaderType);
     const char* source = shaderSource.c_str();
