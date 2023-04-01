@@ -9,7 +9,8 @@ public:
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch);
 
     glm::mat4 GetViewMatrix() const;
-
+    
+    void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
     void ProcessKeyboard(int key, float deltaTime);
 
 private:

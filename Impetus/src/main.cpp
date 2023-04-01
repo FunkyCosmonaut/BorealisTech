@@ -12,6 +12,8 @@
 
 int main()
 {
+    Camera camera(0.0f, 0.0f, 3.0f, 0.0f, 1.0f, 0.0f, -90.0f, 0.0f);
+
     // Initialize GLFW and create a window
     if (!glfwInit())
     {
@@ -37,6 +39,7 @@ int main()
         std::cerr << "Failed to initialize GLAD" << std::endl;
         return -1;
     }
+    
     //Escape callback, closes the program
     glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
@@ -55,7 +58,6 @@ int main()
     }
 
     glLinkProgram(shaderProgram);
-    Camera camera(0.0f, 0.0f, 3.0f, 0.0f, 1.0f, 0.0f, -90.0f, 0.0f);
     
 
        // Create the model, view, and projection matrices
