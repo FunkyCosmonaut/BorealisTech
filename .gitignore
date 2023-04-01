@@ -1,3 +1,14 @@
+build/
 *.o
+*.a
+*.so
+*.exe
 *.out
-final
+*.dll
+*.lib
+*.pdb
+*.exp
+*.app
+*.dylib
+*.swp
+*.swo

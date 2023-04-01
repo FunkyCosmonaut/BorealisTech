@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/ImpetusExample.dir/examples/main.cpp.o -o ImpetusExample  -Wl,-rpath,/home/funkycosmonaut/Impetus/Impetus/build/ext/glad libImpetus.a /usr/lib64/libglfw.so.3.3 ext/glad/libglad.so 
