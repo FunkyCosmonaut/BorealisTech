@@ -1,14 +1,22 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 const char* vertexShaderSource = R"(
 #version 300 es
 layout (location = 0) in vec3 aPos;
 
+uniform mat4 model;
+uniform mat4 view;
+uniform mat4 projection;
+
 void main()
 {
-    gl_Position = vec4(aPos, 1.0);
+    gl_Position = projection * view * model * vec4(aPos, 1.0);
 }
 )";
 
@@ -67,6 +75,20 @@ int main()
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
+       // Create the model, view, and projection matrices
+    glm::mat4 model = glm::mat4(1.0f);
+    glm::mat4 view = glm::lookAt(
+        glm::vec3(0.0f, 0.0f, 3.0f), // Camera position
+        glm::vec3(0.0f, 0.0f, 0.0f), // Target position
+        glm::vec3(0.0f, 1.0f, 0.0f)  // Up vector
+    );
+    glm::mat4 projection = glm::perspective(
+        glm::radians(45.0f), // Field of view
+        800.0f / 600.0f,      // Aspect ratio
+        0.1f,                 // Near clipping plane
+        100.0f                // Far clipping plane
+    );
+
     // Delete the shaders as they are no longer needed
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -98,6 +120,16 @@ int main()
 
         // Draw the triangle
         glUseProgram(shaderProgram);
+        //projstuff
+        GLint modelLoc = glGetUniformLocation(shaderProgram, "model");
+        GLint viewLoc = glGetUniformLocation(shaderProgram, "view");
+        GLint projectionLoc = glGetUniformLocation(shaderProgram, "projection");
+
+        glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+        glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
+        //projstuff
+        
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
