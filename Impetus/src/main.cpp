@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "impetus/utils/shaderloader.h"
+
 
 
 const char* vertexShaderSource = R"(
@@ -59,20 +61,16 @@ int main()
         return -1;
     }
 
-    // Create and compile the vertex shader
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, nullptr);
-    glCompileShader(vertexShader);
+    std::string vertexShaderSource = LoadShaderSource("assets/triangle/triangle.vert");
+    std::string fragmentShaderSource = LoadShaderSource("assets/triangle/triangle.frag");
 
-    // Create and compile the fragment shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, nullptr);
-    glCompileShader(fragmentShader);
+    // Create the shader program using the new shader loader functions
+    GLuint shaderProgram = CreateShaderProgram(vertexShaderSource, fragmentShaderSource);
+    if (shaderProgram == 0) {
+        std::cerr << "Failed to create shader program" << std::endl;
+        return -1;
+    }
 
-    // Create the shader program and link the shaders
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
 
        // Create the model, view, and projection matrices
@@ -90,8 +88,8 @@ int main()
     );
 
     // Delete the shaders as they are no longer needed
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
+   // glDeleteShader(vertexShader);
+   // glDeleteShader(fragmentShader);
 
     // Create vertex data for the triangle
     GLfloat vertices[] = {
