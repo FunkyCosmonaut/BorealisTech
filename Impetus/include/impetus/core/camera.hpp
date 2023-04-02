@@ -12,6 +12,7 @@ public:
     
     void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch = true);
     void ProcessKeyboard(int key, float deltaTime);
+   
 
 private:
     glm::vec3 position;
