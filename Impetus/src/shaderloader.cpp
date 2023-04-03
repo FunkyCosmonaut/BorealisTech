@@ -1,4 +1,4 @@
-#include "impetus/utils/shaderloader.h"
+#include "impetus/utils/shaderloader.hpp"
 #include <fstream>
 #include <sstream>
 #include <iostream>

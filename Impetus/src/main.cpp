@@ -4,8 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "impetus/utils/shaderloader.h"
-#include "impetus/core/camera.h"
+#include "impetus/utils/shaderloader.hpp"
+#include "impetus/core/camera.hpp"
 
 #define IMAGE_HEIGHT 600
 #define IMAGE_WIDTH 800
