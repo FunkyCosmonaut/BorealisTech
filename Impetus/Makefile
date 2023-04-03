@@ -31,3 +31,5 @@ clean:
 
 run: $(TARGET)
 	$(TARGET)
+
+#For gentoo, change glfw3 to glfw
