@@ -94,7 +94,7 @@ bool Renderer::Initialize() {
     //std::vector<GLfloat> texCoords;
     //std::vector<GLfloat> normals;
 
-    if (!ParseFile("assets/cube/cube.obj", vertices, texCoords, normals)) {
+    if (!ParseFile("assets/skeleton/skeleton.obj", vertices, texCoords, normals)) {
         std::cerr << "Failed to load the OBJ file. Terminating the application." << std::endl;
         std::exit(EXIT_FAILURE);
         }

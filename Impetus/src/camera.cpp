@@ -34,7 +34,7 @@ void Camera::updateCameraVectors() {
     up = glm::normalize(glm::cross(right, front));
 }
 
-void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch) {
+/*void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch) {
     xOffset *= mouseSensitivity;
     yOffset *= mouseSensitivity;
 
@@ -49,4 +49,4 @@ void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPi
     }
 
     updateCameraVectors();
-}
+}*/
