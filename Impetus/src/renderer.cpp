@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "impetus/utils/shaderloader.hpp"
+#include "impetus/utils/objloader.hpp"
+
 #define IMAGE_HEIGHT 600
 #define IMAGE_WIDTH 800
 
@@ -88,18 +90,27 @@ bool Renderer::Initialize() {
    // glDeleteShader(fragmentShader);
 
     // Create vertex data for the triangle
-    GLfloat vertices[] = {
+    //std::vector<GLfloat> vertices;
+    //std::vector<GLfloat> texCoords;
+    //std::vector<GLfloat> normals;
+
+    if (!ParseFile("assets/cube/cube.obj", vertices, texCoords, normals)) {
+        std::cerr << "Failed to load the OBJ file. Terminating the application." << std::endl;
+        std::exit(EXIT_FAILURE);
+        }
+    /*GLfloat vertices[] = {
         -0.5f, -0.5f, 0.0f,
          0.5f, -0.5f, 0.0f,
          0.0f,  0.5f, 0.0f
-    };
+    };*/
 
     glGenVertexArrays(1, &VAO_);
     glGenBuffers(1, &VBO_);
 
     glBindVertexArray(VAO_);
     glBindBuffer(GL_ARRAY_BUFFER, VBO_);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
@@ -146,7 +157,7 @@ void Renderer::RenderScene() {
         //projstuff
         
         glBindVertexArray(VAO_);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        glDrawArrays(GL_TRIANGLES, 0, static_cast<GLsizei>(vertices.size() / 3));
 
         // Swap buffers and poll for events
         glfwSwapBuffers(window_);

@@ -1,8 +1,10 @@
 #pragma once
+#include <glad/glad.h>
 #include "impetus/core/camera.hpp"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <string>
+#include <vector>
 
 class Renderer {
 public:
@@ -23,4 +25,9 @@ private:
     glm::mat4 model_;
     glm::mat4 view_;
     glm::mat4 projection_;
+
+    //object stuff
+    std::vector<GLfloat> vertices;
+    std::vector<GLfloat> texCoords;
+    std::vector<GLfloat> normals;
 };
