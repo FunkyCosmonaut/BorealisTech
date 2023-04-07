@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Iinclude
-LDFLAGS = -lglfw3 -lGL -ldl -lpthread -lm -lX11 
+LDFLAGS = $(shell pkg-config --libs glfw3 || pkg-config --libs glfw) -lGL -ldl -lpthread -lm -lX11 
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
@@ -31,5 +31,3 @@ clean:
 
 run: $(TARGET)
 	$(TARGET)
-
-#For gentoo, change glfw3 to glfw
