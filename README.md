@@ -1,2 +1,3 @@
-Was going to create this using the Vulkan API and features but don't have a single PC made after 2016, development has started in OpenGL 3 ES and will be ported to Vulkan in the future. 
-In order to compile on linux glad, glfw3 and OpenGLES version 3 is needed before running make.
+BorealisTech my custom research/simulation and games platform written using OpenGL ES3 for its rendering layer to provide easy porting torwards embedded systems, mobile devices and the web. In order to build, you must have glfw3 installed on your system and an OpenGLES2/3 implementation, run Make in the BorealisTech directory to build.
+
+Still in the earlier stages of development
