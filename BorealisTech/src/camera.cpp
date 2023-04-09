@@ -1,4 +1,4 @@
-#include "impetus/core/camera.hpp"
+#include "borealistech/core/camera.hpp"
 
 Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch)
     : position(glm::vec3(posX, posY, posZ)), worldUp(glm::vec3(upX, upY, upZ)), yaw(yaw), pitch(pitch),

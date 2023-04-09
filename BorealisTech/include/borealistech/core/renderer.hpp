@@ -1,6 +1,6 @@
 #pragma once
 #include <glad/glad.h>
-#include "impetus/core/camera.hpp"
+#include "borealistech/core/camera.hpp"
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include <string>

@@ -1,11 +1,11 @@
 #include <glad/glad.h>
-#include "impetus/core/renderer.hpp"
+#include "borealistech/core/renderer.hpp"
 #include <iostream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "impetus/utils/shaderloader.hpp"
-#include "impetus/utils/objloader.hpp"
+#include "borealistech/utils/shaderloader.hpp"
+#include "borealistech/utils/objloader.hpp"
 
 #define IMAGE_HEIGHT 600
 #define IMAGE_WIDTH 800
@@ -34,7 +34,7 @@ bool Renderer::Initialize() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
 
-    window_ = glfwCreateWindow(IMAGE_WIDTH, IMAGE_HEIGHT, "Impetus", nullptr, nullptr);
+    window_ = glfwCreateWindow(IMAGE_WIDTH, IMAGE_HEIGHT, "BorealisTech", nullptr, nullptr);
     if (!window_)
     {
         std::cerr << "Failed to create GLFW window" << std::endl;

@@ -1,5 +1,5 @@
 #include <glad/glad.h>
-#include "impetus/utils/objloader.hpp"
+#include "borealistech/utils/objloader.hpp"
 #include <algorithm>
 #include <iostream>
 #include <fstream>

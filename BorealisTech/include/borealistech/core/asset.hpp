@@ -1,5 +1,5 @@
 #pragma once
-#include "impetus/utils/objloader.hpp"
+#include "borealistech/utils/objloader.hpp"
 #include <vector>
 #include <glm/glm.hpp>
 

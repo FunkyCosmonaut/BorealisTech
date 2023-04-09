@@ -4,7 +4,7 @@ LDFLAGS = $(shell pkg-config --libs glfw3 || pkg-config --libs glfw) -lGL -ldl -
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
-TARGET = $(BINDIR)/Impetus
+TARGET = $(BINDIR)/BorealisTech
 SOURCES = $(wildcard $(SRCDIR)/*.cpp) $(SRCDIR)/glad.c
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(filter %.cpp,$(SOURCES))) \
           $(OBJDIR)/glad.o

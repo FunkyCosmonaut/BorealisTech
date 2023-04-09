@@ -1,6 +1,6 @@
 #pragma once
-#include "impetus/core/renderer.hpp"
-#include "impetus/core/camera.hpp"
+#include "borealistech/core/renderer.hpp"
+#include "borealistech/core/camera.hpp"
 
 class Engine {
 public:
