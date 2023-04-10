@@ -1,11 +1,11 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Iinclude
-LDFLAGS = $(shell pkg-config --libs glfw3 || pkg-config --libs glfw) -lGL -ldl -lpthread -lm -lX11 
+LDFLAGS = $(shell pkg-config --libs glfw3 || pkg-config --libs glfw) -lGL -ldl -lpthread -lm -lX11
 SRCDIR = src
 OBJDIR = obj
 BINDIR = bin
 TARGET = $(BINDIR)/BorealisTech
-SOURCES = $(wildcard $(SRCDIR)/*.cpp) $(SRCDIR)/glad.c
+SOURCES = $(wildcard $(SRCDIR)/*/*.cpp) $(wildcard $(SRCDIR)/utils/glad.c)
 OBJECTS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(filter %.cpp,$(SOURCES))) \
           $(OBJDIR)/glad.o
 
@@ -18,10 +18,10 @@ $(TARGET): $(OBJECTS)
 	$(CXX) $^ -o $@ $(LDFLAGS)
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	@mkdir -p $(OBJDIR)
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(OBJDIR)/glad.o: $(SRCDIR)/glad.c
+$(OBJDIR)/glad.o: $(SRCDIR)/utils/glad.c
 	@mkdir -p $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
